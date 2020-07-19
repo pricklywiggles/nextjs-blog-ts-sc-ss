@@ -1,16 +1,18 @@
 import Document from "next/document";
 import { ServerStyleSheet } from "styled-components";
-import { AppProps } from "next/app";
+import { DocumentContext, DocumentInitialProps } from "next/document";
 
 class MyDocument extends Document {
-  static async getInitialProps(ctx: any) {
+  static async getInitialProps(
+    ctx: DocumentContext
+  ): Promise<DocumentInitialProps> {
     const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
 
     try {
       ctx.renderPage = () =>
         originalRenderPage({
-          enhanceApp: (App: any) => (props: AppProps) =>
+          enhanceApp: (App) => (props) =>
             sheet.collectStyles(<App {...props} />)
         });
       const initialProps = await Document.getInitialProps(ctx);

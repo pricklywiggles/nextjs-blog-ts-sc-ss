@@ -2,32 +2,34 @@ import Layout from "../../components/layout";
 import Head from "next/head";
 import { getAllPostIds, getPostData } from "../../lib/posts";
 import Date from "../../components/date";
-import { H1, TextBox, Box } from "../../components/styled";
-import { GetStaticProps, GetStaticPaths, GetServerSideProps } from "next";
+import { H1, TextBox } from "../../components/styled";
+import { GetStaticProps, GetStaticPaths } from "next";
 
-export const Post = ({
-  postData
-}: {
-  postData: { date: string; title: string; contentHtml: string };
-}) => {
-  return (
-    <Layout home={false}>
-      <Head>
-        <title>{postData.title}</title>
-      </Head>
-      <article>
-        <H1 size="xl">{postData.title}</H1>
-        <TextBox size="sm" color="lightText">
-          <Date dateString={postData.date} />
-        </TextBox>
-        <br />
-        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
-      </article>
-    </Layout>
-  );
-};
+interface PostProps {
+  postData: {
+    date: string;
+    title: string;
+    contentHtml: string;
+  };
+}
 
-export const getStaticPaths = async () => {
+export const Post: React.FC<PostProps> = ({ postData }) => (
+  <Layout home={false}>
+    <Head>
+      <title>{postData.title}</title>
+    </Head>
+    <article>
+      <H1 size="xl">{postData.title}</H1>
+      <TextBox size="sm" color="lightText">
+        <Date dateString={postData.date} />
+      </TextBox>
+      <br />
+      <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+    </article>
+  </Layout>
+);
+
+export const getStaticPaths: GetStaticPaths = async () => {
   const paths = getAllPostIds();
   return { paths, fallback: false };
 };

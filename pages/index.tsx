@@ -4,12 +4,17 @@ import Link from "next/link";
 import { getSortedPostsData } from "../lib/posts";
 import Date from "../components/date";
 import { TextBox, UnorderedList, ListItem } from "../components/styled";
+import { GetStaticProps } from "next";
 
-export default function Home({
-  allPostsData
-}: {
-  allPostsData: { date: string; id: string; title: string }[];
-}) {
+interface HomeProps {
+  allPostsData: {
+    date: string;
+    id: string;
+    title: string;
+  }[];
+}
+
+export const Home: React.FC<HomeProps> = ({ allPostsData }) => {
   return (
     <Layout home>
       <Head>…</Head>
@@ -31,9 +36,11 @@ export default function Home({
       </section>
     </Layout>
   );
-}
+};
 
-export const getStaticProps = async () => {
+export default Home;
+
+export const getStaticProps: GetStaticProps = async () => {
   const allPostsData = getSortedPostsData();
   return {
     props: {

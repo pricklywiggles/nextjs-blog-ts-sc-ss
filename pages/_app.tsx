@@ -32,7 +32,7 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const App = ({ Component, pageProps }: AppProps) => (
+const App: React.FC<AppProps> = ({ Component, pageProps }) => (
   <ThemeProvider theme={theme}>
     <Component {...pageProps} />;
     <GlobalStyle />
