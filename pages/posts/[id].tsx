@@ -4,13 +4,10 @@ import { getAllPostIds, getPostData } from "../../lib/posts";
 import Date from "../../components/date";
 import { H1, TextBox } from "../../components/styled";
 import { GetStaticProps, GetStaticPaths } from "next";
+import { PostData } from "../../lib/interfaces";
 
 interface PostProps {
-  postData: {
-    date: string;
-    title: string;
-    contentHtml: string;
-  };
+  postData: PostData;
 }
 
 export const Post: React.FC<PostProps> = ({ postData }) => (

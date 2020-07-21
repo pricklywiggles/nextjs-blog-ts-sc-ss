@@ -6,13 +6,12 @@ import { Img, H1, H2, A } from "./styled";
 const name = "Filiberto Mascarpone";
 export const siteTitle = "Next.js Sample Website";
 
-const Layout = ({
-  children,
-  home
-}: {
+interface LayoutProps {
   children: React.ReactNode;
   home?: boolean;
-}) => (
+}
+
+const Layout: React.FC<LayoutProps> = ({ children, home }) => (
   <Container>
     <Head>
       <link rel="icon" href="/favicon.ico" />
@@ -32,22 +31,14 @@ const Layout = ({
     <Header>
       {home ? (
         <>
-          <HeaderHomeImage
-            src="/images/profile.jpg"
-            shape="circle"
-            alt={name}
-          />
+          <HeaderHomeImage src="/images/profile.jpg" shape="circle" alt={name} />
           <H1 size="xxl">{name}</H1>
         </>
       ) : (
         <>
           <Link href="/">
             <a>
-              <HeaderImage
-                src="/images/profile.jpg"
-                shape="circle"
-                alt={name}
-              />
+              <HeaderImage src="/images/profile.jpg" shape="circle" alt={name} />
             </a>
           </Link>
           <H2 size="lg">

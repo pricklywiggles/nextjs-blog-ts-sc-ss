@@ -8,12 +8,13 @@
     "prettier",
     "prettier/react"
   ],
-  "plugins": ["react", "import", "jsx-a11y", "react-hooks"],
+  "plugins": ["react", "import", "jsx-a11y", "react-hooks", "prettier"],
   "rules": {
     "no-console": 1,
     "react/react-in-jsx-scope": "off",
     "jsx-a11y/anchor-is-valid": "off",
-    "react/prop-types": "off"
+    "react/prop-types": "off",
+    "prettier/prettier": ["error"]
   },
   "parserOptions": {
     "ecmaVersion": 2018,

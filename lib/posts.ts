@@ -3,10 +3,10 @@ import path from "path";
 import matter from "gray-matter";
 import remark from "remark";
 import html from "remark-html";
-
+import { PostData, PostMetaData } from "./interfaces";
 const postsDirectory = path.join(process.cwd(), "posts");
 
-export const getSortedPostsData = () => {
+export const getSortedPostsData = (): Array<PostMetaData> => {
   // Get file names under /posts
   const fileNames = fs.readdirSync(postsDirectory);
   const allPostsData = fileNames.map((fileName) => {
@@ -36,7 +36,7 @@ export const getSortedPostsData = () => {
   });
 };
 
-export const getAllPostIds = () => {
+export const getAllPostIds = (): Array<{ params: { id: string } }> => {
   const fileNames = fs.readdirSync(postsDirectory);
   return fileNames.map((fileName) => {
     return {
@@ -47,15 +47,13 @@ export const getAllPostIds = () => {
   });
 };
 
-export const getPostData = async (id: string) => {
+export const getPostData: (id: string) => Promise<PostData> = async (id) => {
   const fullPath = path.join(postsDirectory, `${id}.md`);
   const fileContents = fs.readFileSync(fullPath, "utf8");
 
   // Use gray-matter to parse the post metadata section
   const matterResult = matter(fileContents);
-  const processedContent = await remark()
-    .use(html)
-    .process(matterResult.content);
+  const processedContent = await remark().use(html).process(matterResult.content);
   const contentHtml = processedContent.toString();
 
   // Combine the data with the id

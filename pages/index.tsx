@@ -5,13 +5,10 @@ import { getSortedPostsData } from "../lib/posts";
 import Date from "../components/date";
 import { TextBox, UnorderedList, ListItem } from "../components/styled";
 import { GetStaticProps } from "next";
+import { PostMetaData } from "../lib/interfaces";
 
 interface HomeProps {
-  allPostsData: {
-    date: string;
-    id: string;
-    title: string;
-  }[];
+  allPostsData: Array<PostMetaData>;
 }
 
 export const Home: React.FC<HomeProps> = ({ allPostsData }) => {
